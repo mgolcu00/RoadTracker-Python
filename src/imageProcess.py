@@ -44,9 +44,12 @@ def getMaskImage(img, vert):
 
 
 def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
-    for line in lines:
-        for x1, y1, x2, y2 in line:
-            cv2.line(img, (x1, y1), (x2, y2), color, thickness)
+    try:
+        for line in lines:
+            for x1, y1, x2, y2 in line:
+                cv2.line(img, (x1, y1), (x2, y2), color, thickness)
+    except  :
+        print('no line founded')
 
 
 def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):

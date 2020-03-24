@@ -1,6 +1,5 @@
 # RoadTracker-Python
 
-=============
 
 ## Setup 
  - Must be have python3
@@ -10,3 +9,10 @@
 ## Usage 
  - ```python main.py -v <VideoPath> -s <SavePath> ```
  - for example ```python main.py -v videos/test.mp4 -s result/result.mp4 ```
+
+##### Description 
+Bu program geliştirilme aşamasında olduğu için herhangi hata ve kullanım sıkıntısında belirtiniz.
+
+
+
+Mert GÖLCÜ 2020&copy;
