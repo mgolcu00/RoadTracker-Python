@@ -1,13 +1,21 @@
-import src. imageProcess as imageProcess 
-import sys,getopt
+# usage : command panel ->
+# python main.py -v <VideoPath> -s <SavePath>
+# VideoPath = the name or path of the mp4 video file you want to use / kullanmak istediğiniz mp4 video dosyasının adı yada yolu
+# SavePath = file name and path where the processed and drawn path video will be saved / işlenen ve çizilen yol videosunun kaydedileceği dosya ismi ve yolu
+# 
+# tr / örnek kullanım şekli -> python main.py -v videos/test.mp4 -s result/result.mp4
+# 
+
+
+import src.imageProcess as imageProcess
+import sys
+import getopt
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
 import cv2
 import math
 import os
-from moviepy.editor import VideoFileClip
-from IPython.display import HTML
 
 # -v video path
 # -s save path
@@ -24,20 +32,21 @@ for opt, arg in opts:
     if opt == '-h':
         print('main.py -v <VideoPath> -s <SavePath>')
         sys.exit()
-    elif opt in ("-v","--vpath"):
-        videoPath=arg
-    elif opt in ("-s","--spath"):
-        savePath=arg
+    elif opt in ("-v", "--vpath"):
+        videoPath = arg
+    elif opt in ("-s", "--spath"):
+        savePath = arg
 
 if savePath == '':
-    savePath='result/'
+    savePath = 'result/'
+
 
 def getVideo(path):
     cap = cv2.VideoCapture(path)
     return cap
 
 
-def saveVideo(cap,spath):
+def saveVideo(cap, spath):
     forucc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(spath,
                           forucc, 60.0, (int(cap.get(3)), int(cap.get(4))))
@@ -60,5 +69,5 @@ def saveVideo(cap,spath):
 
 
 #c = getVideo(imageProcess.set.testdeo)
-print(videoPath +'\n'+savePath)
-saveVideo(getVideo(videoPath),savePath)
+print(videoPath + '\n'+savePath)
+saveVideo(getVideo(videoPath), savePath)

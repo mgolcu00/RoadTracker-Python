@@ -5,8 +5,6 @@ import numpy as np
 import cv2
 import math
 import os
-from moviepy.editor import VideoFileClip
-from IPython.display import HTML
 
 
 def getImage(path):
