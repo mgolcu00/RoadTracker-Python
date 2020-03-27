@@ -4,53 +4,32 @@ import matplotlib.image as mpimg
 import numpy as np
 import cv2
 import os
-from moviepy.editor import VideoFileClip
-from IPython.display import HTML
 import math
 
 
 def grayscale(img):
-    """Applies the Grayscale transform
-    This will return an image with only one color channel
-    but NOTE: to see the returned image as grayscale
-    (assuming your grayscaled image is called 'gray')
-    you should call plt.imshow(gray, cmap='gray')"""
     return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    # Or use BGR2GRAY if you read an image with cv2.imread()
-    # return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 
 def canny(img, low_threshold, high_threshold):
-    """Applies the Canny transform"""
     return cv2.Canny(img, low_threshold, high_threshold)
 
 
 def gaussian_blur(img, kernel_size):
-    """Applies a Gaussian Noise kernel"""
     return cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)
 
 
 def region_of_interest(img, vertices):
-    """
-    Applies an image mask.
-
-    Only keeps the region of the image defined by the polygon
-    formed from `vertices`. The rest of the image is set to black.
-    """
-    # defining a blank mask to start with
     mask = np.zeros_like(img)
 
-    # defining a 3 channel or 1 channel color to fill the mask with depending on the input image
     if len(img.shape) > 2:
         channel_count = img.shape[2]  # i.e. 3 or 4 depending on your image
         ignore_mask_color = (255,) * channel_count
     else:
         ignore_mask_color = 255
 
-    # filling pixels inside the polygon defined by "vertices" with the fill color
     cv2.fillPoly(mask, vertices, ignore_mask_color)
 
-    # returning the image only where mask pixels are nonzero
     masked_image = cv2.bitwise_and(img, mask)
     return masked_image
 
@@ -75,16 +54,13 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=5):
     """
     global cache
     global first_frame
-    # min will be the "highest" y value, or point down the road away from car
+
     y_global_min = img.shape[0]
     y_max = img.shape[0]
     l_slope, r_slope = [], []
     l_lane, r_lane = [], []
     det_slope = 0.4
     α = 0.2
-    # i got this alpha value off of the forums for the weighting between frames.
-    # i understand what it does, but i dont understand where it comes from
-    # much like some of the parameters in the hough function
 
     try:
         for line in lines:
@@ -247,11 +223,6 @@ def process_image(image):
     return result
 
 
-# for source_img in os.listdir("test_images/"):
-#     first_frame = 1
-#     image = mpimg.imread("test_images/"+source_img)
-#     processed = process_image(image)
-#     mpimg.imsave("out_images/annotated_"+source_img, processed)
 
 img = cv2.imread(
     'C:\\Users\\mertg\\Desktop\\RoadTracker\\images\\train_images\\road1.jpg')
